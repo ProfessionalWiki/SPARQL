@@ -1,0 +1,29 @@
+!! options
+parsoid-compatible
+version=2
+!! end
+
+
+!! article
+Module:Sparql
+!! text
+local sparql = require('SPARQL')
+
+local p = {}
+function p.runQuery(frame)
+	return sparql.runQuery(frame.args[1])[0]
+end
+
+return p
+!! endarticle
+
+
+!! test
+getLabel returns empty on subject not found
+!! config
+!! wikitext
+{{#invoke:Sparql|runQuery|sparql query be here}}
+!! html
+<p>sparql query be here
+</p>
+!! end

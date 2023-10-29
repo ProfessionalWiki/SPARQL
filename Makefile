@@ -1,7 +1,7 @@
-.PHONY: ci test cs phpunit phpcs stan psalm
+.PHONY: ci test cs phpunit phpcs stan psalm parser
 
 ci: test cs
-test: phpunit
+test: phpunit parser
 cs: phpcs stan psalm
 
 phpunit:
@@ -28,3 +28,6 @@ psalm:
 
 psalm-baseline:
 	vendor/bin/psalm --config=psalm.xml --set-baseline=psalm-baseline.xml
+
+parser:
+	php ../../tests/parser/parserTests.php --file=tests/parser/lua.txt
