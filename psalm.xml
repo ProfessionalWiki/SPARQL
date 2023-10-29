@@ -16,6 +16,9 @@
 	<extraFiles>
 		<directory name="../../includes" />
 		<directory name="../../tests/phpunit" />
+
+		<directory name="../Scribunto" />
+
 		<directory name="../../vendor/wikimedia" />
 		<directory name="../../vendor/psr" />
 		<directory name="../../vendor/guzzlehttp" />

@@ -31,8 +31,8 @@ See the [usage documentation](https://professional.wiki/en/extension/sparql).
 
 Platform requirements:
 
-* [PHP] 8.1 or later (tested up to 8.1)
-* [MediaWiki] 1.39 or later (tested up to 1.39)
+* [PHP] 8.1 or later (tested up to 8.2)
+* [MediaWiki] 1.39 or later (tested up to 1.40)
 
 The recommended way to install the SPARQL extension is using [Composer] with
 [MediaWiki's built-in support for Composer][Composer install].

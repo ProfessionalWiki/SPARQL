@@ -13,6 +13,7 @@
 		<exclude name="MediaWiki.WhiteSpace.DisallowEmptyLineFunctions.NoEmptyLine" />
 		<exclude name="MediaWiki.WhiteSpace.SpaceAfterClosure.NoWhitespaceAfterClosure" />
 		<exclude name="MediaWiki.WhiteSpace.SameLineCatch.CatchNotOnSameLine" />
+		<exclude name="MediaWiki.WhiteSpace.SpaceAfterClosure.NoWhitespaceAfterArrow" />
 		<exclude name="MediaWiki.Classes.UnusedUseStatement.UnusedUse" />
 		<exclude name="MediaWiki.Classes.UnsortedUseStatements.UnsortedUse" />
 		<exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EndLine" />
