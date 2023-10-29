@@ -1,0 +1,46 @@
+{
+	"name": "SPARQL",
+
+	"version": "1.0.0-alpha",
+
+	"author": [
+		"[https://Professional.Wiki/ Professional.Wiki]"
+	],
+
+	"license-name": "GPL-2.0-or-later",
+
+	"url": "https://professional.wiki/en/extension/sparql",
+
+	"descriptionmsg": "sparql-description",
+
+	"requires": {
+		"MediaWiki": ">= 1.39.0"
+	},
+
+	"MessagesDirs": {
+		"SPARQL": [
+			"i18n"
+		]
+	},
+
+	"AutoloadNamespaces": {
+		"ProfessionalWiki\\SPARQL\\": "src/",
+		"ProfessionalWiki\\SPARQL\\Tests\\": "tests/"
+	},
+
+	"Hooks": {
+	},
+
+	"config": {
+	},
+
+	"ResourceFileModulePaths": {
+		"localBasePath": "resources",
+		"remoteExtPath": "SPARQL/resources"
+	},
+
+	"ResourceModules": {
+	},
+
+	"manifest_version": 2
+}

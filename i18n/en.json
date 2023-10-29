@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jeroen De Dauw",
+			"Morne Alberts"
+		]
+	},
+	"sparql-name": "SPARQL",
+	"sparql-description": "Run SPARQL queries and template their results via Lua"
+}

@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jeroen De Dauw",
+			"Kghbln"
+		]
+	},
+	"sparql-name": "{{notranslate}}",
+	"sparql-description": "{{Desc|name=SPARQL|url=https://github.com/ProfessionalWiki/SPARQL}}"
+}

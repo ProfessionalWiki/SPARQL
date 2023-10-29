@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config ../../vendor/vimeo/psalm/config.xsd"
+	hideExternalErrors="true"
+    errorBaseline="psalm-baseline.xml"
+>
+    <projectFiles>
+        <directory name="src" />
+		<ignoreFiles>
+		</ignoreFiles>
+    </projectFiles>
+
+	<extraFiles>
+		<directory name="../../includes" />
+		<directory name="../../tests/phpunit" />
+		<directory name="../../vendor/wikimedia" />
+		<directory name="../../vendor/psr" />
+		<directory name="../../vendor/guzzlehttp" />
+		<directory name="../../vendor/phpunit/phpunit" />
+	</extraFiles>
+
+	<issueHandlers>
+		<UndefinedConstant errorLevel="suppress" />
+
+		<PropertyNotSetInConstructor>
+			<errorLevel type="suppress">
+				<directory name="src" />
+			</errorLevel>
+		</PropertyNotSetInConstructor>
+
+		<UndefinedFunction>
+			<errorLevel type="suppress">
+				<referencedFunction name="wfMessage"/>
+				<directory name="src" />
+			</errorLevel>
+		</UndefinedFunction>
+	</issueHandlers>
+</psalm>

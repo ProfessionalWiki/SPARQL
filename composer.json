@@ -1,0 +1,37 @@
+{
+	"name": "professional-wiki/sparql",
+	"type": "mediawiki-extension",
+	"description": "Allows running SPARQL queries via lua",
+	"keywords": [
+		"MediaWiki",
+		"Wikibase",
+		"SPARQL"
+	],
+	"homepage": "https://github.com/ProfessionalWiki/SPARQL",
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "Professional.Wiki",
+			"email": "info@Professional.Wiki",
+			"homepage": "https://Professional.Wiki"
+		}
+	],
+	"require": {
+		"php": ">=8.1",
+		"composer/installers": "^2|^1.0.1",
+		"jeroen-de-dauw/file-fetcher": "^6.1.0"
+	},
+	"require-dev": {
+		"vimeo/psalm": "^5.15.0",
+		"phpstan/phpstan": "^1.10.39",
+		"mediawiki/mediawiki-codesniffer": "^42.0.0"
+	},
+	"extra": {
+		"installer-name": "SPARQL"
+	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true
+		}
+	}
+}
