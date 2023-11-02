@@ -41,7 +41,7 @@ end
 return p
 ```
 
-Which can then be invoked via Scribunto's normal mechanisms from within wikitext. Example:
+Which can then be invoked via [Scribunto]'s normal mechanisms from within wikitext. Example:
 
 `{{#invoke:MySPARQL|runQuery|your SPARQL query here}}`
 
