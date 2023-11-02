@@ -25,7 +25,25 @@ Quickly get an idea about what this extension does by checking out the [demo wik
 
 ## Usage documentation
 
-See the [usage documentation](https://professional.wiki/en/extension/sparql).
+Define a lua module that requires the `SPARQL` binding and uses its runQuery method.
+
+Example: create page `Module:MySPARQL`:
+
+```lua
+local sparql = require('SPARQL') -- Import the binding
+
+local p = {}
+
+function p.runQuery(frame)
+	return sparql.runQuery(frame.args[1])[0] -- Use the runQuery method
+end
+
+return p
+```
+
+Which can then be invoked via Scribunto's normal mechanisms from within wikitext. Example:
+
+`{{#invoke:MySPARQL|runQuery|your SPARQL query here}}`
 
 ## Installation
 
@@ -33,6 +51,7 @@ Platform requirements:
 
 * [PHP] 8.1 or later (tested up to 8.2)
 * [MediaWiki] 1.39 or later (tested up to 1.40)
+* [Scribunto] and lua
 
 The recommended way to install the SPARQL extension is using [Composer] with
 [MediaWiki's built-in support for Composer][Composer install].
@@ -113,3 +132,4 @@ Alternatively, you can execute commands from the MediaWiki root directory:
 [LocalSettings.php]: https://www.pro.wiki/help/mediawiki-localsettings-php-guide
 [demo wiki]: https://sparql.wikibase.wiki/
 [demo video]: https://www.youtube.com/watch?v=TODO
+[Scribunto]: https://www.mediawiki.org/wiki/Extension:Scribunto
