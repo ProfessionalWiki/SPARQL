@@ -36,6 +36,10 @@
 	},
 
 	"config": {
+		"SPARQLEndpoint": {
+			"description": "URL used by the PHP backend to connect to SPARQL endpoint for running queries. Example: https://query.wikidata.org",
+			"value": false
+		}
 	},
 
 	"ResourceFileModulePaths": {
