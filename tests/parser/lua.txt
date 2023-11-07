@@ -11,7 +11,7 @@ local sparql = require('SPARQL')
 
 local p = {}
 function p.runQuery(frame)
-	return sparql.runQuery(frame.args[1])[0]
+	return sparql.runQuery(frame.args[1])
 end
 
 return p
