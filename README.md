@@ -81,23 +81,7 @@ Configuration can be changed via [LocalSettings.php].
 
 ## Development
 
-To ensure the dev dependencies get installed, have this in your `composer.local.json`:
-
-```json
-{
-	"require": {
-    "vimeo/psalm": "^5.15.0",
-    "phpstan/phpstan": "^1.10.39"
-	},
-	"extra": {
-		"merge-plugin": {
-			"include": [
-				"extensions/SPARQL/composer.json"
-			]
-		}
-	}
-}
-```
+Run `composer install` in `extensions/SPARQL/` to make the code quality tools available.
 
 ### Running tests and CI checks
 
@@ -105,14 +89,15 @@ You can use the `Makefile` by running make commands in the `SPARQL` directory.
 
 * `make ci`: Run everything
 * `make test`: Run all tests
+* `make phpunit --filter FooBar`: run only PHPUnit tests with FooBar in their name
+* `make phpcs`: Run all style checks
 * `make cs`: Run all style checks and static analysis
 
-Alternatively, you can execute commands from the MediaWiki root directory:
+### Updating baseline files
 
-* PHPUnit: `php tests/phpunit/phpunit.php -c extensions/SPARQL/`
-* Style checks: `vendor/bin/phpcs -p -s --standard=extensions/SPARQL/phpcs.xml`
-* PHPStan: `vendor/bin/phpstan analyse --configuration=extensions/SPARQL/phpstan.neon --memory-limit=2G`
-* Psalm: `php vendor/bin/psalm --config=extensions/SPARQL/psalm.xml`
+Sometimes Psalm and PHPStan generate errors or warnings we do not wish to fix.
+These can be ignored by adding them to the respective baseline file. You can update
+these files with `make stan-baseline` and `make psalm-baseline`.
 
 ## Release notes
 
