@@ -32,7 +32,8 @@
 	},
 
 	"Hooks": {
-		"ScribuntoExternalLibraries": "ProfessionalWiki\\SPARQL\\HookHandlers::onScribuntoExternalLibraries"
+		"ScribuntoExternalLibraries": "ProfessionalWiki\\SPARQL\\HookHandlers::onScribuntoExternalLibraries",
+		"ParserTestGlobals": "ProfessionalWiki\\SPARQL\\HookHandlers::onParserTestGlobals"
 	},
 
 	"config": {
