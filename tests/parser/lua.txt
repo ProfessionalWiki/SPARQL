@@ -24,6 +24,5 @@ getLabel returns empty on subject not found
 !! wikitext
 {{#invoke:Sparql|runQuery|sparql query be here}}
 !! html
-<p>sparql query be here
-</p>
+
 !! end
