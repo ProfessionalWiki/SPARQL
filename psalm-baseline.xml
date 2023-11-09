@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
-
+<files psalm-version="5.15.0@5c774aca4746caf3d239d9c8cadb9f882ca29352">
+  <file src="src/HookHandlers.php">
+    <InternalClass>
+      <code>HttpRequestFactory::CONSTRUCTOR_OPTIONS</code>
+      <code><![CDATA[new HttpRequestFactory(
+					new ServiceOptions(
+						HttpRequestFactory::CONSTRUCTOR_OPTIONS,
+						$services->getMainConfig()
+					),
+					LoggerFactory::getInstance( 'http' ),
+					Telemetry::getInstance()
+				)]]></code>
+    </InternalClass>
+    <InternalMethod>
+      <code><![CDATA[new HttpRequestFactory(
+					new ServiceOptions(
+						HttpRequestFactory::CONSTRUCTOR_OPTIONS,
+						$services->getMainConfig()
+					),
+					LoggerFactory::getInstance( 'http' ),
+					Telemetry::getInstance()
+				)]]></code>
+    </InternalMethod>
+  </file>
+  <file src="src/SparqlLuaQueryRunner.php">
+    <InternalMethod>
+      <code>request</code>
+    </InternalMethod>
+  </file>
 </files>
