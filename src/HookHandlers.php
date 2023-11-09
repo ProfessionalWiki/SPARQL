@@ -13,12 +13,15 @@ use MediaWiki\MediaWikiServices;
 final class HookHandlers {
 
 	/**
-	 * @param array<string, string> $extraLibraries
+	 * @param array<string, string> &$extraLibraries
 	 */
 	public static function onScribuntoExternalLibraries( string $engine, array &$extraLibraries ): void {
 		$extraLibraries['SPARQL'] = SparqlLua::class;
 	}
 
+	/**
+	 * @param array<string, mixed> &$globals
+	 */
 	public static function onParserTestGlobals( array &$globals ): void {
 		MediaWikiServices::getInstance()->resetServiceForTesting( 'HttpRequestFactory' );
 		MediaWikiServices::getInstance()->redefineService(
