@@ -5,16 +5,88 @@ version=2
 
 
 !! article
-Module:Sparql
+Module:MySPARQL
 !! text
 local sparql = require('SPARQL')
+-- Import necessary modules
+local mwHtml = require('mw.html')
 
+-- Module definition
 local p = {}
-function p.runQuery(frame)
-	return sparql.runQuery(frame.args[1])
+
+function reverseTable(t)
+    local i, j = 1, #t
+
+    while i < j do
+        t[i], t[j] = t[j], t[i]
+        i = i + 1
+        j = j - 1
+    end
+
+    return t
+end
+
+-- Function to run SPARQL query and get results
+local function runSparqlQuery(sparqlQuery)
+    -- Assuming sparql.runQuery is available in your environment
+    return sparql.runQuery(sparqlQuery)
+end
+
+-- Function to process SPARQL results into a Lua table
+local function processResults(jsonResults)
+    local resultsTable = {}
+    if jsonResults and jsonResults.results and jsonResults.results.bindings then
+        local bindings = jsonResults.results.bindings
+        for _, binding in pairs(jsonResults.results.bindings) do
+            local row = {}
+            for key, value in pairs(binding) do
+                table.insert(row, value.value)
+            end
+            row = reverseTable(row)
+            table.insert(resultsTable, row)
+        end
+    end
+    return reverseTable(resultsTable)
+end
+
+-- Function to create an HTML table from a Lua table
+local function createHtmlTable(luaTable, headers)
+    local htmlTable = mwHtml.create('table')
+    htmlTable
+        :addClass('wikitable')
+        :attr('border', '1')
+    
+    if #headers > 1 then
+        local headerRow = htmlTable:tag('tr')
+        for j = 0, #headers do
+            headerRow:tag('th'):wikitext(headers[j])
+        end
+    end
+
+    for i = 1, #luaTable do
+        local dataRow = htmlTable:tag('tr')
+        for _, data in ipairs(luaTable[i]) do
+            dataRow:tag('td'):wikitext(data)
+        end
+    end
+
+    return tostring(htmlTable)
+end
+
+-- Main function to be called from a wiki page
+function p.buildTableFromSparql(frame)
+    local sparqlQuery = frame.args[1]
+    local jsonResults = runSparqlQuery(sparqlQuery)
+    local headers = {}
+    if (jsonResults and jsonResults.head and jsonResults.head.vars) then
+        headers = jsonResults.head.vars
+    end    
+    local resultsTable = processResults(jsonResults)
+    return createHtmlTable(resultsTable, headers)
 end
 
 return p
+
 !! endarticle
 
 
@@ -22,7 +94,12 @@ return p
 getLabel returns empty on subject not found
 !! config
 !! wikitext
-{{#invoke:Sparql|runQuery|sparql query be here}}
-!! html
+{{#invoke:MySPARQL|buildTableFromSparql|
 
+SELECT ?subject_col1 ?predicate ?object WHERE { ?subject_col1 ?predicate ?object } LIMIT 3
+
+}}
+
+!! html
+<table class="wikitable" border="1"><tbody><tr><th>subject_col1</th><th>predicate</th><th>object</th></tr><tr><td><a rel="nofollow" class="external free" href="http://wikiba.se/ontology#Dump">http://wikiba.se/ontology#Dump</a></td><td><a rel="nofollow" class="external free" href="http://creativecommons.org/ns#license">http://creativecommons.org/ns#license</a></td><td><a rel="nofollow" class="external free" href="http://creativecommons.org/publicdomain/zero/1.0/">http://creativecommons.org/publicdomain/zero/1.0/</a></td></tr><tr><td><a rel="nofollow" class="external free" href="http://wikiba.se/ontology#Dump">http://wikiba.se/ontology#Dump</a></td><td><a rel="nofollow" class="external free" href="http://schema.org/dateModified">http://schema.org/dateModified</a></td><td>2023-01-30T23:00:08Z</td></tr><tr><td><a rel="nofollow" class="external free" href="http://wikiba.se/ontology#Dump">http://wikiba.se/ontology#Dump</a></td><td><a rel="nofollow" class="external free" href="http://schema.org/softwareVersion">http://schema.org/softwareVersion</a></td><td>1.0.0</td></tr></tbody></table>
 !! end

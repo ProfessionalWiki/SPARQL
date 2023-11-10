@@ -4,3 +4,18 @@ parameters:
 			message: "#^Method ProfessionalWiki\\\\SPARQL\\\\SparqlLua\\:\\:register\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/SparqlLua.php
+
+		-
+			message: "#^Method ProfessionalWiki\\\\SPARQL\\\\SparqlLua\\:\\:runSparqlQuery\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/SparqlLua.php
+
+		-
+			message: "#^Method ProfessionalWiki\\\\SPARQL\\\\SparqlLuaQueryRunner\\:\\:runQuery\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/SparqlLuaQueryRunner.php
+
+		-
+			message: "#^Method ProfessionalWiki\\\\SPARQL\\\\SparqlLuaQueryRunner\\:\\:runQuery\\(\\) should return array\\|null but returns mixed\\.$#"
+			count: 1
+			path: src/SparqlLuaQueryRunner.php
