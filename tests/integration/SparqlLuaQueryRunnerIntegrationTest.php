@@ -34,8 +34,7 @@ class SparqlLuaQueryRunnerIntegrationTest extends TestCase {
 
 	public function testRunQueryReturnsRightHeadVars(): void {
 		$sparqlQuery = "SELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object } LIMIT 1";
-		$response = $this->queryRunner->runQuery( $sparqlQuery );
-		$data = json_decode( $response, true );
+		$data = $this->queryRunner->runQuery( $sparqlQuery );
 
 		$this->assertArrayHasKey( 'head', $data );
 		$this->assertArrayHasKey( 'vars', $data['head'] );
@@ -45,8 +44,7 @@ class SparqlLuaQueryRunnerIntegrationTest extends TestCase {
 	public function testRunQueryReturnsRightNoOfResults(): void {
 		$limit = 3;
 		$sparqlQuery = "SELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object } LIMIT $limit";
-		$response = $this->queryRunner->runQuery( $sparqlQuery );
-		$responseData = json_decode( $response, true );
+		$responseData = $this->queryRunner->runQuery( $sparqlQuery );
 
 		$this->assertArrayHasKey( 'results', $responseData );
 		$this->assertArrayHasKey( 'bindings', $responseData['results'] );

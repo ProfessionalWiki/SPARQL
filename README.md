@@ -8,7 +8,8 @@
 
 MediaWiki extension for executing SPARQL queries and templating their results via Lua.
 
-[Professional.Wiki] created and maintains SPARQL. We provide [Wikibase hosting], [Wikibase development] and [Wikibase consulting].
+[Professional.Wiki] created and maintains SPARQL. We provide [Wikibase hosting], [Wikibase development]
+and [Wikibase consulting].
 
 **Table of Contents**
 
@@ -30,12 +31,82 @@ Define a lua module that requires the `SPARQL` binding and uses its runQuery met
 Example: create page `Module:MySPARQL`:
 
 ```lua
-local sparql = require('SPARQL') -- Import the binding
+local sparql = require('SPARQL')
+-- Import necessary modules
+local mwHtml = require('mw.html')
 
+-- Module definition
 local p = {}
 
-function p.runQuery(frame)
-	return sparql.runQuery(frame.args[1])[0] -- Use the runQuery method
+function reverseTable(t)
+    local i, j = 1, #t
+
+    while i < j do
+        t[i], t[j] = t[j], t[i]
+        i = i + 1
+        j = j - 1
+    end
+
+    return t
+end
+
+-- Function to run SPARQL query and get results
+local function runSparqlQuery(sparqlQuery)
+    -- Assuming sparql.runQuery is available in your environment
+    return sparql.runQuery(sparqlQuery)
+end
+
+-- Function to process SPARQL results into a Lua table
+local function processResults(jsonResults)
+    local resultsTable = {}
+    if jsonResults and jsonResults.results and jsonResults.results.bindings then
+        local bindings = jsonResults.results.bindings
+        for _, binding in pairs(jsonResults.results.bindings) do
+            local row = {}
+            for key, value in pairs(binding) do
+                table.insert(row, value.value)
+            end
+            row = reverseTable(row)
+            table.insert(resultsTable, row)
+        end
+    end
+    return reverseTable(resultsTable)
+end
+
+-- Function to create an HTML table from a Lua table
+local function createHtmlTable(luaTable, headers)
+    local htmlTable = mwHtml.create('table')
+    htmlTable
+        :addClass('wikitable')
+        :attr('border', '1')
+
+    if #headers > 1 then
+        local headerRow = htmlTable:tag('tr')
+        for j = 0, #headers do
+            headerRow:tag('th'):wikitext(headers[j])
+        end
+    end
+
+    for i = 1, #luaTable do
+        local dataRow = htmlTable:tag('tr')
+        for _, data in ipairs(luaTable[i]) do
+            dataRow:tag('td'):wikitext(data)
+        end
+    end
+
+    return tostring(htmlTable)
+end
+
+-- Main function to be called from a wiki page
+function p.buildTableFromSparql(frame)
+    local sparqlQuery = frame.args[1]
+    local jsonResults = runSparqlQuery(sparqlQuery)
+    local headers = {}
+    if (jsonResults and jsonResults.head and jsonResults.head.vars) then
+        headers = jsonResults.head.vars
+    end
+    local resultsTable = processResults(jsonResults)
+    return createHtmlTable(resultsTable, headers)
 end
 
 return p
@@ -61,6 +132,7 @@ On the commandline, go to your wikis root directory. Then run these two commands
 ```shell script
 COMPOSER=composer.local.json composer require --no-update professional-wiki/sparql:~1.0
 ```
+
 ```shell script
 composer update professional-wiki/sparql --no-dev -o
 ```
@@ -76,8 +148,6 @@ You can verify the extension was enabled successfully by opening your wikis Spec
 ## PHP Configuration
 
 Configuration can be changed via [LocalSettings.php].
-
-
 
 ## Development
 
@@ -103,18 +173,28 @@ these files with `make stan-baseline` and `make psalm-baseline`.
 
 ### Version 1.0.0 - TBD
 
-
-
 [Professional.Wiki]: https://professional.wiki
+
 [Wikibase]: https://wikibase.consulting/what-is-wikibase/
+
 [Wikibase hosting]: https://professional.wiki/en/hosting/wikibase
+
 [Wikibase development]: https://professional.wiki/en/wikibase-software-development
+
 [Wikibase consulting]: https://wikibase.consulting/
+
 [MediaWiki]: https://www.mediawiki.org
+
 [PHP]: https://www.php.net
+
 [Composer]: https://getcomposer.org
+
 [Composer install]: https://professional.wiki/en/articles/installing-mediawiki-extensions-with-composer
+
 [LocalSettings.php]: https://www.pro.wiki/help/mediawiki-localsettings-php-guide
+
 [demo wiki]: https://sparql.wikibase.wiki/
+
 [demo video]: https://www.youtube.com/watch?v=TODO
+
 [Scribunto]: https://www.mediawiki.org/wiki/Extension:Scribunto

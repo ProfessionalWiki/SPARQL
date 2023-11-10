@@ -14,15 +14,16 @@ class SparqlLuaQueryRunner {
 	) {
 	}
 
-	public function runQuery( string $sparql ): string|null {
+	public function runQuery( string $sparql ): array|null {
 		$options = [
 			'postData' => [
 				'query' => $sparql,
 				'format' => 'json'
 			],
 		];
+		$response = $this->requestFactory->request( 'POST', $this->sparqlEndpoint, $options );
 
-		return $this->requestFactory->request( 'POST', $this->sparqlEndpoint, $options );
+		return $response !== null ? json_decode( $response, true ) : null;
 	}
 
 }

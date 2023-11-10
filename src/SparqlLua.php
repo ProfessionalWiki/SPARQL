@@ -19,7 +19,7 @@ class SparqlLua extends LibraryBase {
 		);
 	}
 
-	private function runSparqlQuery( string $sparql ): string|null {
+	private function runSparqlQuery( string $sparql ): array|null {
 		$sparqlEndpoint = MediaWikiServices::getInstance()->getMainConfig()->get( 'SPARQLEndpoint' );
 
 		if ( !is_string( $sparqlEndpoint ) ) {

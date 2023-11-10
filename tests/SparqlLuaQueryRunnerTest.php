@@ -19,7 +19,7 @@ class SparqlLuaQueryRunnerTest extends TestCase {
 		$sparqlLua = new SparqlLuaQueryRunner( $httpRequestFactory, $SPARQLEndpoint );
 
 		$sparql = 'SELECT * WHERE { ?s ?p ?o }';
-		$expectedResponse = 'mocking response';
+		$expectedResponse = json_encode( [ 'name' => 'john doe' ] );
 
 		$httpRequestFactory
 			->expects( $this->once() )
@@ -34,7 +34,7 @@ class SparqlLuaQueryRunnerTest extends TestCase {
 			->willReturn( $expectedResponse );
 
 		$response = $sparqlLua->runQuery( $sparql );
-		$this->assertSame( $expectedResponse, $response );
+		$this->assertSame( json_decode( $expectedResponse, true ), $response );
 	}
 
 }

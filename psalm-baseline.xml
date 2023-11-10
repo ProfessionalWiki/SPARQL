@@ -27,5 +27,12 @@
     <InternalMethod>
       <code>request</code>
     </InternalMethod>
+    <MixedInferredReturnType>
+      <code>array|null</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement>
+      <code>$response !== null ? json_decode( $response, true ) : null</code>
+      <code>$response !== null ? json_decode( $response, true ) : null</code>
+    </MixedReturnStatement>
   </file>
 </files>
