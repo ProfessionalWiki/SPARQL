@@ -95,11 +95,24 @@ getLabel returns empty on subject not found
 !! config
 !! wikitext
 {{#invoke:MySPARQL|buildTableFromSparql|
+PREFIX wdt: <https://portal.mardi4nfdi.de/prop/direct/>
+PREFIX wd: <https://portal.mardi4nfdi.de/entity/>
 
-SELECT ?subject_col1 ?predicate ?object WHERE { ?subject_col1 ?predicate ?object } LIMIT 3
-
+SELECT
+  ?work
+  ?title
+  ?publication_date
+WHERE {
+  ?work wdt:P16 wd:Q195254 .
+  ?work wdt:P159 ?title .
+  OPTIONAL {
+    ?work wdt:P28 ?publication_datetime .
+    BIND(xsd:date(?publication_datetime) AS ?publication_date)
+  }
+}
+ORDER BY DESC(?publication_date)
 }}
 
 !! html
-<table class="wikitable" border="1"><tbody><tr><th>subject_col1</th><th>predicate</th><th>object</th></tr><tr><td><a rel="nofollow" class="external free" href="http://wikiba.se/ontology#Dump">http://wikiba.se/ontology#Dump</a></td><td><a rel="nofollow" class="external free" href="http://creativecommons.org/ns#license">http://creativecommons.org/ns#license</a></td><td><a rel="nofollow" class="external free" href="http://creativecommons.org/publicdomain/zero/1.0/">http://creativecommons.org/publicdomain/zero/1.0/</a></td></tr><tr><td><a rel="nofollow" class="external free" href="http://wikiba.se/ontology#Dump">http://wikiba.se/ontology#Dump</a></td><td><a rel="nofollow" class="external free" href="http://schema.org/dateModified">http://schema.org/dateModified</a></td><td>2023-01-30T23:00:08Z</td></tr><tr><td><a rel="nofollow" class="external free" href="http://wikiba.se/ontology#Dump">http://wikiba.se/ontology#Dump</a></td><td><a rel="nofollow" class="external free" href="http://schema.org/softwareVersion">http://schema.org/softwareVersion</a></td><td>1.0.0</td></tr></tbody></table>
+<table class="wikitable" border="1"><tbody><tr><th>work</th><th>title</th><th>publication_date</th></tr><tr><td>2021-04-23</td><td>Regularity lemmas for clustering graphs</td><td><a rel="nofollow" class="external free" href="https://portal.mardi4nfdi.de/entity/Q2020028">https://portal.mardi4nfdi.de/entity/Q2020028</a></td></tr><tr><td>2017-09-20</td><td>Juggling card sequences</td><td><a rel="nofollow" class="external free" href="https://portal.mardi4nfdi.de/entity/Q2404825">https://portal.mardi4nfdi.de/entity/Q2404825</a></td></tr><tr><td>2020-01-31</td><td>Slow Fibonacci walks</td><td><a rel="nofollow" class="external free" href="https://portal.mardi4nfdi.de/entity/Q2291703">https://portal.mardi4nfdi.de/entity/Q2291703</a></td></tr></tbody></table>
 !! end
