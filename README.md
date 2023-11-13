@@ -32,89 +32,88 @@ Example: create page `Module:MySPARQL`:
 
 ```lua
 local sparql = require('SPARQL')
--- Import necessary modules
 local mwHtml = require('mw.html')
 
--- Module definition
 local p = {}
 
-function reverseTable(t)
-    local i, j = 1, #t
 
-    while i < j do
-        t[i], t[j] = t[j], t[i]
-        i = i + 1
-        j = j - 1
-    end
-
-    return t
+local function trimAndLower(str)
+    if str == nil then return nil end
+    str = str:gsub("^%s*(.-)%s*$", "%1")  -- Trim spaces from both ends
+    return str:lower()  -- Convert to lowercase
 end
 
--- Function to run SPARQL query and get results
-local function runSparqlQuery(sparqlQuery)
-    -- Assuming sparql.runQuery is available in your environment
-    return sparql.runQuery(sparqlQuery)
-end
-
--- Function to process SPARQL results into a Lua table
-local function processResults(jsonResults)
+local function convertJsonToTable(jsonResults)
     local resultsTable = {}
     if jsonResults and jsonResults.results and jsonResults.results.bindings then
         local bindings = jsonResults.results.bindings
-        for _, binding in pairs(jsonResults.results.bindings) do
+        for j=0, #bindings do
             local row = {}
-            for key, value in pairs(binding) do
+            for key, value in pairs(bindings[j]) do
                 table.insert(row, value.value)
             end
-            row = reverseTable(row)
             table.insert(resultsTable, row)
         end
     end
-    return reverseTable(resultsTable)
+    return resultsTable
 end
 
--- Function to create an HTML table from a Lua table
-local function createHtmlTable(luaTable, headers)
+local function createHtmlTable(dataTable, headers, combineFirstTwoColumns)
     local htmlTable = mwHtml.create('table')
-    htmlTable
-        :addClass('wikitable')
-        :attr('border', '1')
+    htmlTable:addClass('wikitable'):attr('border', '1')
 
-    if #headers > 1 then
+    if combineFirstTwoColumns and #headers > 1 then
         local headerRow = htmlTable:tag('tr')
-        for j = 0, #headers do
+        headerRow:tag('th'):wikitext(headers[0] .. " + " .. headers[1])
+        for j = 2, #headers do
             headerRow:tag('th'):wikitext(headers[j])
         end
-    end
-
-    for i = 1, #luaTable do
-        local dataRow = htmlTable:tag('tr')
-        for _, data in ipairs(luaTable[i]) do
-            dataRow:tag('td'):wikitext(data)
+        for _, row in ipairs(dataTable) do
+            local dataRow = htmlTable:tag('tr')
+            local combinedData = '[' .. row[1] .. ' ' .. row[2] .. ']'
+            dataRow:tag('td'):wikitext(combinedData)
+            for j = 3, #row do
+                dataRow:tag('td'):wikitext(row[j])
+            end
+        end
+    else
+        if #headers > 1 then
+            local headerRow = htmlTable:tag('tr')
+            for j = 0, #headers do
+                headerRow:tag('th'):wikitext(headers[j])
+            end
+        end
+        for _, row in ipairs(dataTable) do
+            local dataRow = htmlTable:tag('tr')
+            for _, data in ipairs(row) do
+                dataRow:tag('td'):wikitext(data)
+            end
         end
     end
 
     return tostring(htmlTable)
 end
 
--- Main function to be called from a wiki page
 function p.buildTableFromSparql(frame)
     local sparqlQuery = frame.args[1]
-    local jsonResults = runSparqlQuery(sparqlQuery)
+    local combineFirstTwoColumns = trimAndLower(frame.args[2]) == "true"
+    -- PHP function sparql.runQuery(query) is called
+    local jsonResults = sparql.runQuery(sparqlQuery)
     local headers = {}
-    if (jsonResults and jsonResults.head and jsonResults.head.vars) then
+    if jsonResults and jsonResults.head and jsonResults.head.vars then
         headers = jsonResults.head.vars
     end
-    local resultsTable = processResults(jsonResults)
-    return createHtmlTable(resultsTable, headers)
+    local dataTable = convertJsonToTable(jsonResults)
+    return createHtmlTable(dataTable, headers, combineFirstTwoColumns)
 end
 
 return p
+
 ```
 
 Which can then be invoked via [Scribunto]'s normal mechanisms from within wikitext. Example:
 
-`{{#invoke:MySPARQL|runQuery|your SPARQL query here}}`
+`{{#invoke:MySPARQL|buildTableFromSparql|your SPARQL query here}}`
 
 ## Installation
 
