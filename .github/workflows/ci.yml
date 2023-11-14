@@ -20,6 +20,12 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      blazegraph:
+        image: lyrasis/blazegraph:2.1.5
+        ports:
+          - "8889:8080"
+
     defaults:
       run:
         working-directory: mediawiki
@@ -40,7 +46,7 @@ jobs:
             mediawiki
             !mediawiki/extensions/
             !mediawiki/vendor/
-          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v3
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}_v4
 
       - name: Cache Composer cache
         uses: actions/cache@v3
@@ -69,6 +75,12 @@ jobs:
       - name: Run update.php
         run: php maintenance/update.php --quick
 
+      - name: Load Blazegraph test data
+        run: |
+          curl -X POST --data-binary @extensions/SPARQL/demoData/Q2020028.ttl --header 'Content-Type:text/turtle' http://localhost:8889/bigdata/namespace/kb/sparql
+          curl -X POST --data-binary @extensions/SPARQL/demoData/Q2291703.ttl --header 'Content-Type:text/turtle' http://localhost:8889/bigdata/namespace/kb/sparql
+          curl -X POST --data-binary @extensions/SPARQL/demoData/Q2404825.ttl --header 'Content-Type:text/turtle' http://localhost:8889/bigdata/namespace/kb/sparql
+
       - name: Run PHPUnit
         run: php tests/phpunit/phpunit.php -c extensions/SPARQL/
         if: matrix.mw != 'master'
@@ -80,6 +92,9 @@ jobs:
       - name: Upload code coverage
         run: bash <(curl -s https://codecov.io/bash)
         if: matrix.mw == 'master'
+
+      - name: Run parser tests
+        run: php tests/parser/parserTests.php --file=extensions/SPARQL/tests/parser/lua.txt
 
 
 
