@@ -21,6 +21,7 @@ $wgShowDBErrorBacktrace = true;
 $wgDevelopmentWarnings = true;
 
 wfLoadExtension( "Scribunto" );
+$wgSPARQLEndpoint = 'http://localhost:8889/bigdata/namespace/kb/sparql';
 EOT
 
 cat <<EOT >> LocalSettings.php
