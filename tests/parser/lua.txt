@@ -91,7 +91,6 @@ return p
 !! test
 must have 3 rows and 3 columns with headers
 !! config
-wgSPARQLEndpoint = "http://blazegraph:8080/bigdata/namespace/kb/sparql"
 !! wikitext
 {{#invoke:MySPARQL|buildTableFromSparql|
 PREFIX wdt: <https://portal.mardi4nfdi.de/prop/direct/>
@@ -118,7 +117,6 @@ ORDER BY DESC(?publication_date)
 !! test
 must have 3 rows and 2 columns with headers
 !! config
-wgSPARQLEndpoint = "http://blazegraph:8080/bigdata/namespace/kb/sparql"
 !! wikitext
 {{#invoke:MySPARQL|buildTableFromSparql|
 PREFIX wdt: <https://portal.mardi4nfdi.de/prop/direct/>
