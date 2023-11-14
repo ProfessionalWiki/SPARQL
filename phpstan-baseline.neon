@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: src/HookHandlers.php
+
+		-
 			message: "#^Method ProfessionalWiki\\\\SPARQL\\\\SparqlLua\\:\\:register\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/SparqlLua.php

@@ -24,6 +24,25 @@ final class HookHandlers {
 	 */
 	public static function onParserTestGlobals( array &$globals ): void {
 		MediaWikiServices::getInstance()->resetServiceForTesting( 'HttpRequestFactory' );
+
+		if ( version_compare( MW_VERSION, '1.41', '<' ) ) {
+			MediaWikiServices::getInstance()->redefineService(
+				'HttpRequestFactory',
+				// The below function is copied from ServiceWiring.php. Not sure how to access the original function.
+				static function ( MediaWikiServices $services ): HttpRequestFactory {
+					return new HttpRequestFactory(
+						new ServiceOptions(
+							HttpRequestFactory::CONSTRUCTOR_OPTIONS,
+							$services->getMainConfig()
+						),
+						LoggerFactory::getInstance( 'http' )
+					);
+				},
+			);
+
+			return;
+		}
+
 		MediaWikiServices::getInstance()->redefineService(
 			'HttpRequestFactory',
 			// The below function is copied from ServiceWiring.php. Not sure how to access the original function.

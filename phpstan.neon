@@ -10,3 +10,5 @@ parameters:
 		- ../../tests/phpunit
 		- ../../vendor
 		- ../Scribunto
+	bootstrapFiles:
+		- ../Scribunto/includes/Engines/LuaCommon/LibraryBase.php
