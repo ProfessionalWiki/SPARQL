@@ -3,6 +3,14 @@
   <file src="src/HookHandlers.php">
     <InternalClass>
       <code>HttpRequestFactory::CONSTRUCTOR_OPTIONS</code>
+      <code>HttpRequestFactory::CONSTRUCTOR_OPTIONS</code>
+      <code><![CDATA[new HttpRequestFactory(
+						new ServiceOptions(
+							HttpRequestFactory::CONSTRUCTOR_OPTIONS,
+							$services->getMainConfig()
+						),
+						LoggerFactory::getInstance( 'http' )
+					)]]></code>
       <code><![CDATA[new HttpRequestFactory(
 					new ServiceOptions(
 						HttpRequestFactory::CONSTRUCTOR_OPTIONS,
@@ -14,6 +22,13 @@
     </InternalClass>
     <InternalMethod>
       <code><![CDATA[new HttpRequestFactory(
+						new ServiceOptions(
+							HttpRequestFactory::CONSTRUCTOR_OPTIONS,
+							$services->getMainConfig()
+						),
+						LoggerFactory::getInstance( 'http' )
+					)]]></code>
+      <code><![CDATA[new HttpRequestFactory(
 					new ServiceOptions(
 						HttpRequestFactory::CONSTRUCTOR_OPTIONS,
 						$services->getMainConfig()
@@ -22,6 +37,9 @@
 					Telemetry::getInstance()
 				)]]></code>
     </InternalMethod>
+    <MixedArgument>
+      <code>MW_VERSION</code>
+    </MixedArgument>
   </file>
   <file src="src/SparqlLuaQueryRunner.php">
     <InternalMethod>

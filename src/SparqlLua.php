@@ -5,10 +5,10 @@ declare( strict_types = 1 );
 namespace ProfessionalWiki\SPARQL;
 
 use InvalidArgumentException;
-use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
 use MediaWiki\MediaWikiServices;
+use Scribunto_LuaLibraryBase;
 
-class SparqlLua extends LibraryBase {
+class SparqlLua extends Scribunto_LuaLibraryBase {
 
 	public function register(): array {
 		return $this->getEngine()->registerInterface(
