@@ -124,7 +124,7 @@ these files with `make stan-baseline` and `make psalm-baseline`.
 
 ## Release Notes
 
-### Version 1.0.0 - TBD
+### Version 1.0.0 - 2023-11-24
 
 * Lua binding `SPARQL.runQuery` to execute SPARQL queries and return the results as a Lua table
 * Compatibility with MediaWiki 1.39, 1.40 and 1.41
