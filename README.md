@@ -35,7 +35,7 @@ function p.showFirstValue(frame)
   local queryResults = sparql.runQuery(sparqlQuery) -- Use the runQuery method
 
   -- Replace "work" with the first SELECT variable in your SPARQL query
-  return queryResults['results']['bindings'][1]['work']['value']
+  return queryResults['results']['bindings'][0]['work']['value']
 end
 
 return p
