@@ -34,8 +34,9 @@ function p.showFirstValue(frame)
   local sparqlQuery = frame.args[1]
   local queryResults = sparql.runQuery(sparqlQuery) -- Use the runQuery method
 
-  -- Replace "work" with the first SELECT variable in your SPARQL query
-  return queryResults['results']['bindings'][0]['work']['value']
+  local firstColName = queryResults['head']['vars'][0]
+  return queryResults['results']['bindings'][0][firstColName]['value']
+
 end
 
 return p
