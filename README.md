@@ -3,8 +3,9 @@
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ProfessionalWiki/SPARQL/ci.yml?branch=master)](https://github.com/ProfessionalWiki/SPARQL/actions?query=workflow%3ACI)
 [![Type Coverage](https://shepherd.dev/github/ProfessionalWiki/SPARQL/coverage.svg)](https://shepherd.dev/github/ProfessionalWiki/SPARQL)
 [![Psalm level](https://shepherd.dev/github/ProfessionalWiki/SPARQL/level.svg)](psalm.xml)
-[![Latest Stable Version](https://poser.pugx.org/professional-wiki/sparql/version.png)](https://packagist.org/packages/professional-wiki/sparql)
-[![Download count](https://poser.pugx.org/professional-wiki/sparql/d/total.png)](https://packagist.org/packages/professional-wiki/sparql)
+[![Latest Stable Version](https://poser.pugx.org/professional-wiki/sparql/v/stable)](https://packagist.org/packages/professional-wiki/sparql)
+[![Download count](https://poser.pugx.org/professional-wiki/sparql/downloads)](https://packagist.org/packages/professional-wiki/sparql)
+[![License](https://poser.pugx.org/professional-wiki/sparql/license)](LICENSE)
 
 MediaWiki extension for executing SPARQL queries and templating their results via Lua.
 
