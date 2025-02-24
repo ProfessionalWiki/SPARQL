@@ -57,8 +57,8 @@ Lua module examples:
 
 Platform requirements:
 
-* [PHP] 8.1 or later (tested up to 8.2)
-* [MediaWiki] 1.39 or later (tested up to 1.42-dev)
+* [PHP] 8.1 or later (tested up to 8.3)
+* [MediaWiki] 1.39 or later (tested up to 1.43)
 * [Scribunto] and lua
 
 We also recommend installing the [CodeEditor extension]
