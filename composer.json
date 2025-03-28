@@ -7,7 +7,7 @@
 		"Wikibase",
 		"SPARQL"
 	],
-	"homepage": "https://github.com/ProfessionalWiki/SPARQL",
+	"homepage": "https://professional.wiki/en/extension/sparql",
 	"license": "GPL-2.0-or-later",
 	"authors": [
 		{
@@ -16,6 +16,10 @@
 			"homepage": "https://Professional.Wiki"
 		}
 	],
+	"support": {
+		"issues": "https://github.com/ProfessionalWiki/SPARQL/issues",
+		"source": "https://github.com/ProfessionalWiki/SPARQL"
+	},
 	"require": {
 		"php": ">=8.1",
 		"composer/installers": "^2|^1.0.1"
