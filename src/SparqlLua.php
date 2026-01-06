@@ -6,9 +6,9 @@ namespace ProfessionalWiki\SPARQL;
 
 use InvalidArgumentException;
 use MediaWiki\MediaWikiServices;
-use Scribunto_LuaLibraryBase;
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
 
-class SparqlLua extends Scribunto_LuaLibraryBase {
+class SparqlLua extends LibraryBase {
 
 	public function register(): array {
 		return $this->getEngine()->registerInterface(
