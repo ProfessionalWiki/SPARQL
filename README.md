@@ -57,8 +57,8 @@ Lua module examples:
 
 Platform requirements:
 
-* [PHP] 8.1 or later (tested up to 8.3)
-* [MediaWiki] 1.39 or later (tested up to 1.43)
+* [PHP] 8.1 or later (tested up to 8.5)
+* [MediaWiki] 1.43 or later (tested up to 1.45)
 * [Scribunto] and lua
 
 We also recommend installing the [CodeEditor extension]
@@ -125,6 +125,10 @@ These can be ignored by adding them to the respective baseline file. You can upd
 these files with `make stan-baseline` and `make psalm-baseline`.
 
 ## Release Notes
+
+### Version 2.0.0 - Under development
+
+* Raised the minimum MediaWiki version from 1.39 to 1.43
 
 ### Version 1.0.0 - 2023-11-24
 
