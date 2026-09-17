@@ -114,6 +114,8 @@ You can use the `Makefile` by running make commands in the `SPARQL` directory.
 
 * `make ci`: Run everything
 * `make test`: Run all tests
+* `make parser`: Run the legacy parser tests
+* `make parsoid`: Run Parsoid rendering and wikitext round-trip tests
 * `make phpunit --filter FooBar`: run only PHPUnit tests with FooBar in their name
 * `make phpcs`: Run all style checks
 * `make cs`: Run all style checks and static analysis

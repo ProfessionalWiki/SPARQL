@@ -1,7 +1,7 @@
-.PHONY: ci test cs phpunit phpcs stan psalm parser
+.PHONY: ci test cs phpunit phpcs stan psalm parser parsoid
 
 ci: test cs
-test: phpunit parser
+test: phpunit parser parsoid
 cs: phpcs stan psalm
 
 phpunit:
@@ -31,3 +31,6 @@ psalm-baseline:
 
 parser:
 	php ../../tests/parser/parserTests.php --file=tests/parser/lua.txt
+
+parsoid:
+	php ../../tests/parser/parserTests.php --file=tests/parser/lua.txt --parsoid --wt2html --wt2wt

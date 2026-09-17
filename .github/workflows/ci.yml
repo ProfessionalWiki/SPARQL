@@ -106,6 +106,9 @@ jobs:
       - name: Run parser tests
         run: php tests/parser/parserTests.php --file=extensions/SPARQL/tests/parser/lua.txt
 
+      - name: Run Parsoid rendering and round-trip tests
+        run: php tests/parser/parserTests.php --file=extensions/SPARQL/tests/parser/lua.txt --parsoid --wt2html --wt2wt
+
 
 
 
